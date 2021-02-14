@@ -13,6 +13,7 @@ namespace PictureViewer
     public partial class Form1 : Form
     {
         int k = 0, N = 0;
+        bool slideShow = false;
         List<string> names = new List<string>();
         List<string> pathes = new List<string>();
         public Form1()
@@ -38,6 +39,7 @@ namespace PictureViewer
                 pathes.AddRange(ofd.FileNames);
                 foreach(var n in names)
                     listBox1.Items.Add(n);
+                listBox1.SelectedIndex = 0;
             }
         }
 
@@ -65,7 +67,51 @@ namespace PictureViewer
 
         private void buttonBack_Click(object sender, EventArgs e)
         {
+            k = listBox1.SelectedIndex;
+            if (k == -1)
+                MessageBox.Show("Image not selected", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            else
+            {
+                N = listBox1.Items.Count;
+                if (k == 0)
+                    listBox1.SelectedIndex = listBox1.Items.Count - 1;
+                else
+                    listBox1.SelectedIndex--;
+            }
+        }
 
+        private void buttonStart_Click(object sender, EventArgs e)
+        {
+            if (listBox1.Items.Count > 0)
+            {
+                timer1.Start();
+                //buttonStart.Enabled = false;
+            }
+        }
+
+        private void buttonStop_Click(object sender, EventArgs e)
+        {
+            timer1.Stop();
+        }
+
+        private void buttonReset_Click(object sender, EventArgs e)
+        {
+            if (listBox1.Items.Count > 0) 
+                listBox1.SelectedIndex = 0;
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            buttonForward.PerformClick();
+        }
+
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            listBox1.Items.Clear();
+            pathes.Clear();
+            names.Clear();
+            buttonStop.PerformClick();
+            pictureBox1.Image = null;
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
