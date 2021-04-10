@@ -33,28 +33,30 @@ namespace PictureViewer
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.filesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.programToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.authorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.buttonBack = new System.Windows.Forms.Button();
-            this.buttonForward = new System.Windows.Forms.Button();
-            this.buttonStart = new System.Windows.Forms.Button();
-            this.buttonStop = new System.Windows.Forms.Button();
-            this.buttonReset = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.bRotate = new System.Windows.Forms.Button();
+            this.bPause = new System.Windows.Forms.Button();
+            this.bPlay = new System.Windows.Forms.Button();
+            this.bNext = new System.Windows.Forms.Button();
+            this.bPrev = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.tvFiles = new System.Windows.Forms.TreeView();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.pbView = new System.Windows.Forms.PictureBox();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.lDragInfo = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbView)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -64,7 +66,7 @@ namespace PictureViewer
             this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(811, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(919, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -72,11 +74,41 @@ namespace PictureViewer
             // 
             this.filesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openToolStripMenuItem,
+            this.clearToolStripMenuItem,
             this.closeToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.filesToolStripMenuItem.Name = "filesToolStripMenuItem";
             this.filesToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
             this.filesToolStripMenuItem.Text = "&Files";
+            // 
+            // openToolStripMenuItem
+            // 
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.openToolStripMenuItem.Text = "Open";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            // 
+            // clearToolStripMenuItem
+            // 
+            this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.clearToolStripMenuItem.Text = "Clear";
+            this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
+            // 
+            // closeToolStripMenuItem
+            // 
+            this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.closeToolStripMenuItem.Text = "Close";
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
@@ -90,177 +122,186 @@ namespace PictureViewer
             // programToolStripMenuItem
             // 
             this.programToolStripMenuItem.Name = "programToolStripMenuItem";
-            this.programToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.programToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.programToolStripMenuItem.Text = "Program";
             // 
             // authorsToolStripMenuItem
             // 
             this.authorsToolStripMenuItem.Name = "authorsToolStripMenuItem";
-            this.authorsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.authorsToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.authorsToolStripMenuItem.Text = "Authors";
-            // 
-            // openToolStripMenuItem
-            // 
-            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.openToolStripMenuItem.Text = "Open";
-            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
-            // 
-            // closeToolStripMenuItem
-            // 
-            this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.closeToolStripMenuItem.Text = "Close";
-            this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.groupBox1.Controls.Add(this.listBox1);
-            this.groupBox1.Location = new System.Drawing.Point(12, 27);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(200, 325);
-            this.groupBox1.TabIndex = 1;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "List files";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.groupBox2.Controls.Add(this.buttonReset);
-            this.groupBox2.Controls.Add(this.buttonStop);
-            this.groupBox2.Controls.Add(this.buttonStart);
-            this.groupBox2.Controls.Add(this.buttonForward);
-            this.groupBox2.Controls.Add(this.buttonBack);
-            this.groupBox2.Location = new System.Drawing.Point(12, 358);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(200, 100);
-            this.groupBox2.TabIndex = 2;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "View control";
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox3.Controls.Add(this.pictureBox1);
-            this.groupBox3.Location = new System.Drawing.Point(218, 27);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(581, 431);
-            this.groupBox3.TabIndex = 3;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "View";
-            // 
-            // listBox1
-            // 
-            this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 16;
-            this.listBox1.Location = new System.Drawing.Point(3, 18);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(194, 304);
-            this.listBox1.TabIndex = 0;
-            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox1.Location = new System.Drawing.Point(3, 18);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(575, 410);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            // 
-            // buttonBack
-            // 
-            this.buttonBack.Location = new System.Drawing.Point(6, 21);
-            this.buttonBack.Name = "buttonBack";
-            this.buttonBack.Size = new System.Drawing.Size(30, 32);
-            this.buttonBack.TabIndex = 0;
-            this.buttonBack.Text = "<";
-            this.buttonBack.UseVisualStyleBackColor = true;
-            this.buttonBack.Click += new System.EventHandler(this.buttonBack_Click);
-            // 
-            // buttonForward
-            // 
-            this.buttonForward.Location = new System.Drawing.Point(42, 21);
-            this.buttonForward.Name = "buttonForward";
-            this.buttonForward.Size = new System.Drawing.Size(30, 32);
-            this.buttonForward.TabIndex = 1;
-            this.buttonForward.Text = ">";
-            this.buttonForward.UseVisualStyleBackColor = true;
-            this.buttonForward.Click += new System.EventHandler(this.buttonForward_Click);
-            // 
-            // buttonStart
-            // 
-            this.buttonStart.Location = new System.Drawing.Point(94, 21);
-            this.buttonStart.Name = "buttonStart";
-            this.buttonStart.Size = new System.Drawing.Size(30, 32);
-            this.buttonStart.TabIndex = 2;
-            this.buttonStart.Text = "▶";
-            this.buttonStart.UseVisualStyleBackColor = true;
-            this.buttonStart.Click += new System.EventHandler(this.buttonStart_Click);
-            // 
-            // buttonStop
-            // 
-            this.buttonStop.Location = new System.Drawing.Point(130, 21);
-            this.buttonStop.Name = "buttonStop";
-            this.buttonStop.Size = new System.Drawing.Size(30, 32);
-            this.buttonStop.TabIndex = 3;
-            this.buttonStop.Text = "⏹";
-            this.buttonStop.UseVisualStyleBackColor = true;
-            this.buttonStop.Click += new System.EventHandler(this.buttonStop_Click);
-            // 
-            // buttonReset
-            // 
-            this.buttonReset.Location = new System.Drawing.Point(166, 21);
-            this.buttonReset.Name = "buttonReset";
-            this.buttonReset.Size = new System.Drawing.Size(30, 32);
-            this.buttonReset.TabIndex = 4;
-            this.buttonReset.Text = "🔁";
-            this.buttonReset.UseVisualStyleBackColor = true;
-            this.buttonReset.Click += new System.EventHandler(this.buttonReset_Click);
             // 
             // timer1
             // 
             this.timer1.Interval = 2000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.panel1.Controls.Add(this.bRotate);
+            this.panel1.Controls.Add(this.bPause);
+            this.panel1.Controls.Add(this.bPlay);
+            this.panel1.Controls.Add(this.bNext);
+            this.panel1.Controls.Add(this.bPrev);
+            this.panel1.Location = new System.Drawing.Point(452, 470);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(216, 42);
+            this.panel1.TabIndex = 2;
+            // 
+            // bRotate
+            // 
+            this.bRotate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.bRotate.BackgroundImage = global::PictureViewer.Properties.Resources.rotate;
+            this.bRotate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.bRotate.Location = new System.Drawing.Point(175, 3);
+            this.bRotate.Name = "bRotate";
+            this.bRotate.Size = new System.Drawing.Size(37, 37);
+            this.bRotate.TabIndex = 4;
+            this.bRotate.UseVisualStyleBackColor = true;
+            this.bRotate.Click += new System.EventHandler(this.bRotate_Click);
+            // 
+            // bPause
+            // 
+            this.bPause.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.bPause.BackgroundImage = global::PictureViewer.Properties.Resources.pause;
+            this.bPause.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.bPause.Enabled = false;
+            this.bPause.Location = new System.Drawing.Point(132, 3);
+            this.bPause.Name = "bPause";
+            this.bPause.Size = new System.Drawing.Size(37, 37);
+            this.bPause.TabIndex = 3;
+            this.bPause.UseVisualStyleBackColor = true;
+            this.bPause.Click += new System.EventHandler(this.bPause_Click);
+            // 
+            // bPlay
+            // 
+            this.bPlay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.bPlay.BackgroundImage = global::PictureViewer.Properties.Resources.play;
+            this.bPlay.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.bPlay.Location = new System.Drawing.Point(89, 3);
+            this.bPlay.Name = "bPlay";
+            this.bPlay.Size = new System.Drawing.Size(37, 37);
+            this.bPlay.TabIndex = 2;
+            this.bPlay.UseVisualStyleBackColor = true;
+            this.bPlay.Click += new System.EventHandler(this.bPlay_Click);
+            // 
+            // bNext
+            // 
+            this.bNext.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.bNext.BackgroundImage = global::PictureViewer.Properties.Resources.next;
+            this.bNext.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.bNext.Location = new System.Drawing.Point(46, 2);
+            this.bNext.Name = "bNext";
+            this.bNext.Size = new System.Drawing.Size(37, 37);
+            this.bNext.TabIndex = 1;
+            this.bNext.UseVisualStyleBackColor = true;
+            this.bNext.Click += new System.EventHandler(this.bNext_Click);
+            // 
+            // bPrev
+            // 
+            this.bPrev.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.bPrev.BackgroundImage = global::PictureViewer.Properties.Resources.prev;
+            this.bPrev.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.bPrev.Location = new System.Drawing.Point(3, 3);
+            this.bPrev.Name = "bPrev";
+            this.bPrev.Size = new System.Drawing.Size(37, 37);
+            this.bPrev.TabIndex = 0;
+            this.bPrev.UseVisualStyleBackColor = true;
+            this.bPrev.Click += new System.EventHandler(this.bPrev_Click);
+            // 
+            // panel2
+            // 
+            this.panel2.AllowDrop = true;
+            this.panel2.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel2.Controls.Add(this.lDragInfo);
+            this.panel2.Controls.Add(this.tvFiles);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel2.Location = new System.Drawing.Point(0, 24);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(212, 500);
+            this.panel2.TabIndex = 3;
+            this.panel2.DragDrop += new System.Windows.Forms.DragEventHandler(this.tvFiles_DragDrop);
+            this.panel2.DragEnter += new System.Windows.Forms.DragEventHandler(this.tvFiles_DragEnter);
+            this.panel2.DragLeave += new System.EventHandler(this.tvFiles_DragLeave);
+            // 
+            // tvFiles
+            // 
+            this.tvFiles.AllowDrop = true;
+            this.tvFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tvFiles.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.tvFiles.ImageIndex = 0;
+            this.tvFiles.ImageList = this.imageList1;
+            this.tvFiles.Location = new System.Drawing.Point(0, 44);
+            this.tvFiles.Name = "tvFiles";
+            this.tvFiles.SelectedImageIndex = 0;
+            this.tvFiles.Size = new System.Drawing.Size(208, 452);
+            this.tvFiles.TabIndex = 0;
+            this.tvFiles.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvFiles_AfterSelect);
+            this.tvFiles.DragDrop += new System.Windows.Forms.DragEventHandler(this.tvFiles_DragDrop);
+            this.tvFiles.DragEnter += new System.Windows.Forms.DragEventHandler(this.tvFiles_DragEnter);
+            this.tvFiles.DragLeave += new System.EventHandler(this.tvFiles_DragLeave);
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "folder_closed.ico");
+            this.imageList1.Images.SetKeyName(1, "folder_open.ico");
+            this.imageList1.Images.SetKeyName(2, "image.ico");
+            // 
+            // pbView
+            // 
+            this.pbView.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.pbView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pbView.Location = new System.Drawing.Point(212, 24);
+            this.pbView.Name = "pbView";
+            this.pbView.Size = new System.Drawing.Size(707, 500);
+            this.pbView.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbView.TabIndex = 1;
+            this.pbView.TabStop = false;
+            // 
+            // lDragInfo
+            // 
+            this.lDragInfo.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.lDragInfo.Location = new System.Drawing.Point(0, 8);
+            this.lDragInfo.Name = "lDragInfo";
+            this.lDragInfo.Size = new System.Drawing.Size(212, 26);
+            this.lDragInfo.TabIndex = 1;
+            this.lDragInfo.Text = "You can drag your files";
+            this.lDragInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(811, 469);
-            this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
+            this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.ClientSize = new System.Drawing.Size(919, 524);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.pbView);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Picture viewer";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -276,17 +317,20 @@ namespace PictureViewer
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem programToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem authorsToolStripMenuItem;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button buttonReset;
-        private System.Windows.Forms.Button buttonStop;
-        private System.Windows.Forms.Button buttonStart;
-        private System.Windows.Forms.Button buttonForward;
-        private System.Windows.Forms.Button buttonBack;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.PictureBox pbView;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button bPrev;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Button bRotate;
+        private System.Windows.Forms.Button bPause;
+        private System.Windows.Forms.Button bPlay;
+        private System.Windows.Forms.Button bNext;
+        private System.Windows.Forms.TreeView tvFiles;
+        private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
+        private System.Windows.Forms.ImageList imageList1;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.Label lDragInfo;
     }
 }
 
